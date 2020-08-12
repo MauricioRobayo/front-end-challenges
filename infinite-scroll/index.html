@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <title>Infinite Scroll</title>
     <style>
+      body {
+        font-family: sans-serif;
+        font-size: 16px;
+      }
       .container {
         display: flex;
         flex-direction: column;
@@ -16,16 +20,24 @@
         height: 100%;
         margin: 1rem 2rem;
       }
+      #load-more {
+        padding: 1rem 2rem;
+        margin: 2;
+        background-color: darkcyan;
+        color: white;
+        border-radius: 1rem;
+      }
     </style>
   </head>
   <body>
     <div class="container">
+      <div id="infinite-scroll-imgs-container"></div>
+      <div id="load-more">Loading more content...</div>
     </div>
-    <div id="load-more">Loading more content...</div>
     <script>
-      const container = document.querySelector(".container");
       const loadMore = document.querySelector("#load-more");
-      const observer = new IntersectionObserver(handleIntersect);
+      const observer = new IntersectionObserver(handleIntersect, { threshold: 1});
+      const imgsContainer = document.querySelector("#infinite-scroll-imgs-container");
 
       observer.observe(loadMore)
 
@@ -38,24 +50,25 @@
         for (let i = 0; i < images; i += 1) {
           const img = document.createElement("img");
           img.src = `http://api.adorable.io/avatars/${randomInteger()}`;
+          img.classList.add('infinite-scroll-img')
           imgs.push(img);
         }
         return imgs;
       }
 
-      function appendImages(images) {
+      function appendImages(container, images) {
         container.append(...imgGenerator(images));
       }
 
       function handleIntersect(entries, observer) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            appendImages(5);
+            appendImages(imgsContainer, 5);
           }
         });
       }
 
-      appendImages(5);
+      appendImages(imgsContainer, 5);
     </script>
   </body>
 </html>
