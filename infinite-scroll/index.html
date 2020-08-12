@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Infinite Scroll</title>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        margin: 1rem 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    </div>
+    <div id="load-more">Loading more content...</div>
+    <script>
+      const container = document.querySelector(".container");
+      const loadMore = document.querySelector("#load-more");
+      const observer = new IntersectionObserver(handleIntersect);
+
+      observer.observe(loadMore)
+
+      function randomInteger() {
+        return Math.floor(Math.random() * 1000000);
+      }
+
+      function imgGenerator(images) {
+        const imgs = [];
+        for (let i = 0; i < images; i += 1) {
+          const img = document.createElement("img");
+          img.src = `http://api.adorable.io/avatars/${randomInteger()}`;
+          imgs.push(img);
+        }
+        return imgs;
+      }
+
+      function appendImages(images) {
+        container.append(...imgGenerator(images));
+      }
+
+      function handleIntersect(entries, observer) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            appendImages(5);
+          }
+        });
+      }
+
+      appendImages(5);
+    </script>
+  </body>
+</html>
