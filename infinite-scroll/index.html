@@ -36,7 +36,7 @@
     </div>
     <script>
       const loadMore = document.querySelector("#load-more");
-      const observer = new IntersectionObserver(handleIntersect, { threshold: 1});
+      const observer = new IntersectionObserver(handleIntersect);
       const imgsContainer = document.querySelector("#infinite-scroll-imgs-container");
 
       observer.observe(loadMore)
