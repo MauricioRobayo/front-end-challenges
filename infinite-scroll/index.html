@@ -60,7 +60,7 @@
         container.append(...imgGenerator(numberOfImages));
       }
 
-      function handleIntersect(entries, observer) {
+      function handleIntersect(entries) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             appendImages(imgsContainer, 5);
