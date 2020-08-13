@@ -37,7 +37,7 @@
     <script>
       const loadMore = document.querySelector("#load-more");
       const observer = new IntersectionObserver(handleIntersect);
-      const imgsContainer = document.querySelector("#images-container");
+      const imagesContainer = document.querySelector("#images-container");
 
       observer.observe(loadMore)
 
@@ -46,14 +46,14 @@
       }
 
       function imgGenerator(numberOfImages) {
-        const imgs = [];
+        const images = [];
         for (let i = 0; i < numberOfImages; i += 1) {
           const img = document.createElement("img");
           img.src = `http://api.adorable.io/avatars/${randomInteger()}`;
           img.classList.add('infinite-scroll-img')
-          imgs.push(img);
+          images.push(img);
         }
-        return imgs;
+        return images;
       }
 
       function appendImages(container, numberOfImages) {
@@ -63,12 +63,12 @@
       function handleIntersect(entries) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            appendImages(imgsContainer, 5);
+            appendImages(imagesContainer, 5);
           }
         });
       }
 
-      appendImages(imgsContainer, 25);
+      appendImages(imagesContainer, 25);
     </script>
   </body>
 </html>
