@@ -31,13 +31,13 @@
   </head>
   <body>
     <div class="container">
-      <div id="infinite-scroll-imgs-container"></div>
+      <div id="images-container"></div>
       <div id="load-more">Loading more content...</div>
     </div>
     <script>
       const loadMore = document.querySelector("#load-more");
       const observer = new IntersectionObserver(handleIntersect);
-      const imgsContainer = document.querySelector("#infinite-scroll-imgs-container");
+      const imgsContainer = document.querySelector("#images-container");
 
       observer.observe(loadMore)
 
