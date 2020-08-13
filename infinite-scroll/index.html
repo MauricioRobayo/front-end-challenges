@@ -45,9 +45,9 @@
         return Math.floor(Math.random() * 1000000);
       }
 
-      function imgGenerator(images) {
+      function imgGenerator(numberOfImages) {
         const imgs = [];
-        for (let i = 0; i < images; i += 1) {
+        for (let i = 0; i < numberOfImages; i += 1) {
           const img = document.createElement("img");
           img.src = `http://api.adorable.io/avatars/${randomInteger()}`;
           img.classList.add('infinite-scroll-img')
@@ -56,8 +56,8 @@
         return imgs;
       }
 
-      function appendImages(container, images) {
-        container.append(...imgGenerator(images));
+      function appendImages(container, numberOfImages) {
+        container.append(...imgGenerator(numberOfImages));
       }
 
       function handleIntersect(entries, observer) {
