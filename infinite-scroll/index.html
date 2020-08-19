@@ -4,71 +4,55 @@
     <meta charset="UTF-8" />
     <title>Infinite Scroll</title>
     <style>
-      body {
-        font-family: sans-serif;
-        font-size: 16px;
-      }
       .container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: 520px;
-        margin: 0 auto;
       }
-      img {
-        width: 100%;
-        height: 100%;
-        margin: 1rem 2rem;
-      }
-      #load-more {
-        padding: 1rem 2rem;
-        margin: 2;
-        background-color: darkcyan;
-        color: white;
-        border-radius: 1rem;
+      .container img {
+        max-width: 320px;
+        margin: 1rem 1rem;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div id="images-container"></div>
-      <div id="load-more">Loading more content...</div>
-    </div>
+    <div class="container"></div>
+    <div id="img-loader">Loading images...</div>
     <script>
-      const loadMore = document.querySelector("#load-more");
-      const observer = new IntersectionObserver(handleIntersect);
-      const imagesContainer = document.querySelector("#images-container");
+      const container = document.querySelector(".container");
+      const imgLoader = document.querySelector("#img-loader");
 
-      observer.observe(loadMore)
+      const observer = new IntersectionObserver(loadImgs);
 
-      function randomInteger() {
-        return Math.floor(Math.random() * 1000000);
+      function randomInt() {
+        return Math.floor(Math.random() * 100000);
       }
 
-      function imgGenerator(numberOfImages) {
-        const images = [];
-        for (let i = 0; i < numberOfImages; i += 1) {
+      function generateImgs(totalImgs) {
+        const imgs = [];
+        for (let i = 0; i < totalImgs; i++) {
           const img = document.createElement("img");
-          img.src = `http://api.adorable.io/avatars/${randomInteger()}`;
-          img.classList.add('infinite-scroll-img')
-          images.push(img);
+          img.src = `http://api.adorable.io/avatars/${randomInt()}`;
+          imgs.push(img);
         }
-        return images;
+        return imgs;
       }
 
-      function appendImages(container, numberOfImages) {
-        container.append(...imgGenerator(numberOfImages));
+      function appendImgs(container, totalImgs) {
+        const imgs = generateImgs(totalImgs);
+        container.append(...imgs);
       }
 
-      function handleIntersect(entries) {
+      function loadImgs(entries) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            appendImages(imagesContainer, 5);
+            appendImgs(container, 10);
           }
         });
       }
 
-      appendImages(imagesContainer, 25);
+      appendImgs(container, 5);
+      observer.observe(imgLoader);
     </script>
   </body>
 </html>
