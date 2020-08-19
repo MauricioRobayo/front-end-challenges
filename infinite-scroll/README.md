@@ -6,7 +6,14 @@ For the purpose of this challenge, images can be random avatars, generated using
 
 When you feel ready, you can validate your solution using any collaborative HTML/CSS renderer, such as this one.
 
-Source: [pramp](https://www.pramp.com/)
+## Source
+
+[Pramp](https://www.pramp.com/)
+
+## Resources
+
+- [Complexities of an Infinite Scroll](https://developers.google.com/web/updates/2016/07/infinite-scroller)
+- [Front Ends - Lecture 6 - CS50's Web Programming with Python and JavaScript 2018](https://youtu.be/ZRV7JCXAFTs?t=1577)
 
 ## Solutions
 
