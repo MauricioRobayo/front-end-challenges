@@ -10,7 +10,8 @@
         align-items: center;
       }
       .container img {
-        max-width: 320px;
+        background-color: lightgrey;
+        height: 320px;
         margin: 1rem 1rem;
       }
     </style>
@@ -21,7 +22,10 @@
     <script>
       const container = document.querySelector(".container");
       const imgLoader = document.querySelector("#img-loader");
-
+      const imgsPerBatch = 10
+      const winHeight = window.innerHeight // viewport height
+      const imgHeight = 320
+      const neededImgs = Math.ceil(winHeight / imgHeight)
       const observer = new IntersectionObserver(loadImgs);
 
       function randomInt() {
@@ -32,7 +36,9 @@
         const imgs = [];
         for (let i = 0; i < totalImgs; i++) {
           const img = document.createElement("img");
-          img.src = `http://api.adorable.io/avatars/${randomInt()}`;
+          const imgName = randomInt()
+          img.src = `http://api.adorable.io/avatars/${imgName}`;
+          img.alt = imgName;
           imgs.push(img);
         }
         return imgs;
@@ -45,14 +51,17 @@
 
       function loadImgs(entries) {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            appendImgs(container, 10);
+          if (entry.target === imgLoader && entry.isIntersecting) {
+            appendImgs(container, imgsPerBatch);
           }
         });
       }
 
-      appendImgs(container, 5);
       observer.observe(imgLoader);
+
+      if (imgsPerBatch <= neededImgs) {
+        appendImgs(container, neededImgs - imgsPerBatch)
+      }
     </script>
   </body>
 </html>

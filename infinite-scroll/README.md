@@ -7,3 +7,5 @@ For the purpose of this challenge, images can be random avatars, generated using
 When you feel ready, you can validate your solution using any collaborative HTML/CSS renderer, such as this one.
 
 Source: [pramp](https://www.pramp.com/)
+
+- [Intersection Observer](intersection-observer)
