@@ -8,4 +8,6 @@ When you feel ready, you can validate your solution using any collaborative HTML
 
 Source: [pramp](https://www.pramp.com/)
 
+## Solutions
+
 - [Intersection Observer](intersection-observer)
