@@ -6,6 +6,14 @@
     <style>
       body {
         min-height: 100vh;
+        display: grid;
+        grid-template-areas:
+          "header"
+          "menu"
+          "content"
+          "ads"
+          "footer";
+        grid-template-rows: auto auto 1fr auto auto;
       }
       body, h3, ul {
         margin: 0;
@@ -55,6 +63,16 @@
     <h1 class="text-center">HEADER</h1>
   </header>
   
+  <main>
+    <h2 class="text-center">CONTENT</h2>
+    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
+    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
+    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
+    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
+    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
+    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
+  </main>
+
   <aside class="menu">
     <h3 class="text-center">MENU</h3>
     <ul>
@@ -65,16 +83,6 @@
       <li>Item 5</li>
     </ul>
   </aside>
-  
-  <main>
-    <h2 class="text-center">CONTENT</h2>
-    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
-    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
-    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
-    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
-    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
-    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
-  </main>
   
   <aside class="ads">
     <div>AD</div>
