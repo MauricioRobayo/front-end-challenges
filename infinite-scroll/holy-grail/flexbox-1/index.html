@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Holy Grail</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      ul, h3 {
+        margin: 0;
+      }
+      body, header, aside, main, footer {
+        border: 1px solid blueviolet;
+      }
+      body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+        /* flex: 1; */
+        margin: 0;
+      }
+      .main-content {
+        display: flex;
+        flex-direction: column;
+      }
+      @media screen and (min-width: 600px) {
+        .main-content {
+          flex-direction: row;
+          flex: 1;
+        }
+      }
+      .text-center {
+        text-align: center;
+      }
+      aside, nav {
+        flex-basis: 25%;
+      }
+      nav {
+        order: -1;
+      }
+    </style>
+</head>
+<body>
+  <header>
+    <h1 class="text-center">HEADER</h1>
+  </header>
+  <div class="main-content">
+    <main>
+      <h1 class="text-center">CONTENT</h1>
+      <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
+      <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
+    </main>
+    <nav>
+      <h3 class="text-center">Menu</h3>
+      <ul>
+        <li>item-1</li>
+        <li>item-2</li>
+        <li>item-3</li>
+        <li>item-4</li>
+        <li>item-5</li>
+      </ul>
+    </nav>
+    <aside>
+      <div>Ad</div>
+      <div>Ad</div>
+    </aside>
+  </div>
+  <footer class="text-center">FOOTER</footer>
+</body>
+</html>
