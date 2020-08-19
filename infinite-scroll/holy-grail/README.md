@@ -16,4 +16,5 @@ Photo by David Lark, distributed by CC BY 4.0
 ## Solutions
 
 - [CSS Grid 1](css-grid-1)
+- [CSS Grid 2](css-grid-2)
 - [Flexbox 1](flexbox-1)

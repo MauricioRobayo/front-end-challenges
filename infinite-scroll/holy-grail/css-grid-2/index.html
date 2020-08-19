@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Holy Grail</title>
+    <style>
+      body {
+        display: grid;
+        grid-template-rows: auto auto 1fr auto auto;
+        min-height: 100vh;
+        border: 1px solid red;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      nav {
+        grid-row: 2 /3;
+      }
+      content {
+        grid-row: 3 / 4;
+      }
+      @media screen and (min-width: 600px) {
+        body {
+          grid-template-columns: 15% 1fr 15%;
+          grid-template-rows: auto 1fr auto;
+        }
+        header, footer {
+          grid-column: 1 / 4;
+        }
+        nav, aside, main {
+          grid-row: 2 / 2;
+        }
+        nav {
+          grid-column: 1 / 2;
+        }
+        main {
+          grid-column: 2 / 3;
+        }
+        aside {
+          grid-column: 3 / 4;
+        }
+
+      }
+      header, footer {
+        text-align: center;
+        border: 1px solid red;
+      }
+      nav, aside, main {
+        border: 1px solid red;
+      }
+    </style>
+</head>
+<body>
+  <header>
+    <h1>HEADER</h1>
+  </header>
+  
+  <main>
+    <h2 class="text-center">CONTENT</h2>
+    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
+    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
+    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
+    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
+    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
+    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
+  </main>
+
+  <nav>
+    <h3 class="text-center">MENU</h3>
+    <ul>
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+      <li>Item 4</li>
+      <li>Item 5</li>
+    </ul>
+  </nav>
+  
+  <aside>
+    <div>AD</div>
+    <div>AD</div>
+  </aside>
+  
+  <footer>FOOTER</footer>
+</body>
+</html>
