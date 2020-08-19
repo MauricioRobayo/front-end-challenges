@@ -12,3 +12,7 @@ Photo by David Lark, distributed by CC BY 4.0
 ## Source
 
 [Pramp](https://www.pramp.com/)
+
+## Solutions
+
+- [CSS Grid 1](css-grid-1)
