@@ -4,19 +4,79 @@
     <meta charset="UTF-8">
     <title>Holy Grail</title>
     <style>
-    /* --------------------
-     Add your styling here
-     -------------------- */
+      h3, ul {
+        margin: 0;
+      }
+      body, aside, header, footer, main {
+        border: 1px solid black;
+      }
+      @media screen and (min-width: 600px) {
+        body {
+          display: grid;
+          grid-template-areas:
+            "header header header"
+            "menu content ads"
+            "footer footer footer";
+          grid-template-columns: 15% 1fr 15%;
+        }
+      }
+      header {
+        grid-area: header;
+        background-color: aqua;
+      }
+      .menu {
+        grid-area: menu;
+      }
+      .menu h3, .menu ul, .ads div {
+        background-color: palegreen;
+      }
+      main {
+        grid-area: content;
+        background-color: salmon;
+      }
+      .ads {
+        grid-area: ads;
+      }
+      footer {
+        grid-area: footer;
+        background-color: aqua;
+      }
+      .text-center {
+        text-align: center;
+      }
     </style>
 </head>
 <body>
-    <!----------------------
-    Add your markup here
-    ------------------------>
-<script>
-    /* --------------------
-     Add your code here
-    --------------------- */
-</script>
+  <header>
+    <h1 class="text-center">HEADER</h1>
+  </header>
+  
+  <aside class="menu">
+    <h3 class="text-center">MENU</h3>
+    <ul>
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+      <li>Item 4</li>
+      <li>Item 5</li>
+    </ul>
+  </aside>
+  
+  <main>
+    <h2 class="text-center">CONTENT</h2>
+    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
+    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
+    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
+    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
+    <p>In web design, a “holy grail” refers to a web page layout which has multiple, equal height columns that are defined with style sheets.</p>
+    <p>Build this layout, and describe the tradeoffs you’ve made in designing it.</p>
+  </main>
+  
+  <aside class="ads">
+    <div>AD</div>
+    <div>AD</div>
+  </aside>
+  
+  <footer class="text-center">FOOTER</footer>
 </body>
 </html>
