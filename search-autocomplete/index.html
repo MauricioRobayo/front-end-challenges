@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Autocomplete</title>
+    <!-- Included some basic styling, change at will -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/prampcontent/3ea04cbd0f61a798e96afbe5d31ec2f9/raw/e879e32222b543b29a168daa089e2f9f28cf9eb2/autocomplete.css">
+</head>
+<body>
+<form class="search-form">
+    <input type="text" class="search-input" placeholder="Start typing a movie title...">
+    <ul class="results"></ul>
+</form>
+<!-- Helper code to provide a search API for mock data -->
+<script src="https://cdn.rawgit.com/prampcontent/180077452f9279073cab1035f60d30cf/raw/9cbf891a80bad9ad09c6261ef9578a65502922cc/search_helper.js"></script>
+<script>
+    /*-------------------------------
+    *
+    * Write your JavaScript code here.
+    *
+    * The mocked search data is available using the searchData async method, e.g:
+    *   searchData("QUERY").then(results => ...)
+    * ------------------------------*/
+  const form = document.querySelector('.search-form')
+  const input = document.querySelector('.search-input')
+  const results = document.querySelector('.results')
+  
+  function searchElementItem(text) {
+    const li = document.createElement('li')
+    li.textContent = text
+    return li
+  }
+  
+  function autocomplete(event) {
+    const searchTerm = event.target.value
+    searchData(searchTerm)
+      .then(result => {
+        if (!searchTerm) {
+          results.innerHTML = ''
+        } else {
+          results.innerHTML = ''
+          results.append(...result.map((movie) => searchElementItem(movie.title)))    
+        }
+      })
+  }
+  
+  function debounce(fn, delay) {
+    
+    let timeout;
+    
+    return function(...args) {
+      clearTimeout(timeout)
+      
+      timeout = setTimeout(() => {
+        fn.apply(this, args)  
+      }, delay)
+    }
+  }
+  
+  input.addEventListener('keyup', debounce(autocomplete, 250))
+  
+</script>
+</body>
+</html>
