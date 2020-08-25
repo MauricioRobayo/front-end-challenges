@@ -22,31 +22,26 @@
     <script>
       const container = document.querySelector(".container");
       const imgLoader = document.querySelector("#img-loader");
-      const imgsPerBatch = 10
-      const winHeight = window.innerHeight // viewport height
-      const imgHeight = 320
-      const neededImgs = Math.ceil(winHeight / imgHeight)
+      const imgsPerBatch = 10;
+      const winHeight = window.innerHeight; // viewport height
+      const imgHeight = 320;
+      const neededImgs = Math.ceil(winHeight / imgHeight);
       const observer = new IntersectionObserver(loadImgs);
 
       function randomInt() {
         return Math.floor(Math.random() * 100000);
       }
 
-      function generateImgs(totalImgs) {
-        const imgs = [];
-        for (let i = 0; i < totalImgs; i++) {
-          const img = document.createElement("img");
-          const imgName = randomInt()
-          img.src = `http://api.adorable.io/avatars/${imgName}`;
-          img.alt = imgName;
-          imgs.push(img);
-        }
-        return imgs;
+      function imgGenerator() {
+        const img = document.createElement("img");
+        const imgName = randomInt();
+        img.src = `http://api.adorable.io/avatars/${imgName}`;
+        img.alt = imgName;
+        return img;
       }
 
       function appendImgs(container, totalImgs) {
-        const imgs = generateImgs(totalImgs);
-        container.append(...imgs);
+        container.append(...Array.from({ length: totalImgs }, imgGenerator));
       }
 
       function loadImgs(entries) {
@@ -60,7 +55,7 @@
       observer.observe(imgLoader);
 
       if (imgsPerBatch <= neededImgs) {
-        appendImgs(container, neededImgs - imgsPerBatch)
+        appendImgs(container, neededImgs - imgsPerBatch);
       }
     </script>
   </body>
