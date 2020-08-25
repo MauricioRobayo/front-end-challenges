@@ -20,8 +20,6 @@
     <div class="container"></div>
     <div id="img-loader">Loading images...</div>
     <script>
-      const container = document.querySelector(".container");
-      const imgLoader = document.querySelector("#img-loader");
       const imgsPerBatch = 10;
       const winHeight = window.innerHeight; // viewport height
       const imgHeight = 320;
@@ -40,22 +38,24 @@
         return img;
       }
 
-      function appendImgs(container, totalImgs) {
+      function appendImgs(totalImgs) {
+        const container = document.querySelector(".container");
         container.append(...Array.from({ length: totalImgs }, imgGenerator));
       }
 
       function loadImgs(entries) {
         entries.forEach((entry) => {
           if (entry.target === imgLoader && entry.isIntersecting) {
-            appendImgs(container, imgsPerBatch);
+            appendImgs(imgsPerBatch);
           }
         });
       }
 
+      const imgLoader = document.querySelector("#img-loader");
       observer.observe(imgLoader);
 
       if (imgsPerBatch <= neededImgs) {
-        appendImgs(container, neededImgs - imgsPerBatch);
+        appendImgs(neededImgs - imgsPerBatch);
       }
     </script>
   </body>
