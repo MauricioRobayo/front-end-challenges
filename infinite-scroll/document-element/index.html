@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Infinite Scroll</title>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      img {
+        width: var(--imgSize);
+        height: var(--imgSize);
+        margin: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+    <script>
+      const container = document.querySelector('.container')
+      const root = document.documentElement
+
+      const { clientHeight } = root
+      const IMAGE_HEIGHT = 300
+      const initialImages = Math.ceil(clientHeight / IMAGE_HEIGHT)
+
+      root.style.setProperty('--imgSize', `${IMAGE_HEIGHT}px`)
+
+      function randomInt() {
+        return Math.floor(Math.random() * 1000000)
+      }
+
+      function imgGenerator() {
+        const img = document.createElement('img')
+        const randInt = randomInt()
+        img.src = `http://api.adorable.io/avatars/${randInt}`
+        img.alt = randInt
+        return img
+      }
+
+      function loadImages(imagesCount) {
+        container.append(...Array.from({length: imagesCount}, imgGenerator))
+      }
+
+      function scrollHandler() {
+        const { scrollTop, scrollHeight, clientHeight } = root
+        if (scrollTop + clientHeight >= scrollHeight - 10) {
+          loadImages(10)
+        }   
+      }
+
+      document.addEventListener('scroll', scrollHandler)
+
+      loadImages(initialImages)
+      
+    </script>
+  </body>
+</html>
