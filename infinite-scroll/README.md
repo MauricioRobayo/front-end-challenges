@@ -18,3 +18,4 @@ When you feel ready, you can validate your solution using any collaborative HTML
 ## Solutions
 
 - [Intersection Observer](intersection-observer)
+- [Document Element](document-element)
