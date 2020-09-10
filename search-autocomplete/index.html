@@ -39,6 +39,10 @@
         display: flex;
         justify-content: space-between;
       }
+      .highlight {
+        background-color: yellow;
+        font-style: italic;
+      }
     </style>
   </head>
   <body>
@@ -58,25 +62,29 @@
 
       function createElement(type, text) {
         const el = document.createElement(type)
-        el.textContent = text
+        el.innerHTML = text
         return el
       }
 
-      function resultItemGenerator({title, rating}) {
+      function resultItemGenerator(key, {title, rating}) {
+        const regexp = new RegExp(`(${key})`, 'ig')
+        const match = title.replace(regexp, '<span class=highlight>$1</span>')
         const li = document.createElement('li')
-        const titleEl = createElement('span', title)
+        const titleEl = createElement('span', match)
         const ratingEl = createElement('span', rating)
         li.append(titleEl, ratingEl)
         return li
       }
 
       function handleInput() {
-        if (this.value === '') {
+        const query = this.value
+        if (query === '') {
           resultsUl.innerHTML = ''
           return
         }
         
-        memoSearchData(this.value).then(loadResults)
+        memoSearchData(query)
+          .then((results) => loadResults(query, results))
       }
 
       function memo(func) {
@@ -100,9 +108,9 @@
 
       const memoSearchData = memo(searchData)
 
-      function loadResults(results) {
+      function loadResults(query, results) {
           resultsUl.innerHTML = ''
-          resultsUl.append(...results.map(resultItemGenerator))
+          resultsUl.append(...results.map(result => resultItemGenerator(query, result)))
       }
 
       function debounce(func, delay) {
