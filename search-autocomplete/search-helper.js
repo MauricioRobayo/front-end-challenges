@@ -1,4 +1,7 @@
 const searchData = (searchText) => {
+  if (searchText === '') {
+    return new Promise((resolve) => resolve([]))
+  }
   const regex = new RegExp(searchText, "gi");
   return new Promise((resolve) =>
     resolve(topMovies.filter((m) => m.title.match(regex)))

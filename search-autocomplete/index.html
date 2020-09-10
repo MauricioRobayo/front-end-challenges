@@ -53,13 +53,39 @@
     <!-- Helper code to provide a search API for mock data -->
     <script src="./search-helper.js"></script>
     <script>
-      /*-------------------------------
-       *
-       * Write your JavaScript code here.
-       *
-       * The mocked search data is available using the searchData async method, e.g:
-       *   searchData("QUERY").then(results => ...)
-       * ------------------------------*/
+      const searchInput = document.querySelector('.search-input')
+      const resultsUl = document.querySelector('.results')
+
+      function createElement(type, text) {
+        const el = document.createElement(type)
+        el.textContent = text
+        return el
+      }
+
+      function resultItemGenerator({title, rating}) {
+        const li = document.createElement('li')
+        const titleEl = createElement('span', title)
+        const ratingEl = createElement('span', rating)
+        li.append(titleEl, ratingEl)
+        return li
+      }
+
+      function handleInput() {
+        if (this.value === '') {
+          resultsUl.innerHTML = ''
+          return
+        }
+        
+        searchData(this.value).then(loadResults)
+      }
+
+      function loadResults(results) {
+          resultsUl.innerHTML = ''
+          resultsUl.append(...results.map(resultItemGenerator))
+      }
+
+      searchInput.addEventListener('keyup', handleInput)
+      searchInput.addEventListener('change', handleInput)
     </script>
   </body>
-</html>
+</h
