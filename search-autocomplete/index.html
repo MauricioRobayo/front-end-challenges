@@ -105,8 +105,20 @@
           resultsUl.append(...results.map(resultItemGenerator))
       }
 
-      searchInput.addEventListener('keyup', handleInput)
-      searchInput.addEventListener('change', handleInput)
+      function debounce(func, delay) {
+        let timeout = null;
+
+        return function(...args) {
+          clearTimeout(timeout)
+
+          timeout = setTimeout(() => {
+            func.apply(this, args)
+          }, delay)
+        }
+      }
+
+      searchInput.addEventListener('keyup', debounce(handleInput, 250))
+      searchInput.addEventListener('change', debounce(handleInput, 250))
     </script>
   </body>
 </h
