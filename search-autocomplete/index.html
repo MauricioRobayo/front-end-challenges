@@ -57,6 +57,10 @@
     <!-- Helper code to provide a search API for mock data -->
     <script src="./search-helper.js"></script>
     <script>
+
+      const resultsCache = new Map()
+      const elementsCache = new Map()
+
       const searchInput = document.querySelector('.search-input')
       const resultsUl = document.querySelector('.results')
 
@@ -77,40 +81,38 @@
       }
 
       function handleInput() {
-        const query = this.value
+        const query = this.value.trim()
         if (query === '') {
           resultsUl.innerHTML = ''
           return
         }
         
-        memoSearchData(query)
-          .then((results) => loadResults(query, results))
-      }
+        if (resultsCache.has(query)) {
+          console.log('results cache hit')
+          loadResults(query, resultsCache.get(query))
+          return
+        }
 
-      function memo(func) {
-        const cache = new Map();
-
-        return async function(key) {
-          if (cache.has(key)) {
-            console.log('cache hit')
-            return cache.get(key)
-          }
-
-          console.log('cache miss')
-          const res = await func(key)
-
-          cache.set(key, res)
-
-          return res
+        searchData(query)
+          .then((results) => {
+            console.log('results cache miss')
+            resultsCache.set(query, results)
+            loadResults(query, results)
+          })
         }
         
-      }
-
-      const memoSearchData = memo(searchData)
-
-      function loadResults(query, results) {
+        function loadResults(query, results) {
           resultsUl.innerHTML = ''
-          resultsUl.append(...results.map(result => resultItemGenerator(query, result)))
+          if (elementsCache.has(query)) {
+            console.log('elements cache hit')
+            resultsUl.append(...elementsCache.get(query))
+            return 
+          }
+          
+          console.log('elements cache miss')
+          const elements = results.map((result) => resultItemGenerator(query, result))
+          elementsCache.set(query, elements)
+          resultsUl.append(...elements)
       }
 
       function debounce(func, delay) {
