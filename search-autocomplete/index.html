@@ -76,8 +76,29 @@
           return
         }
         
-        searchData(this.value).then(loadResults)
+        memoSearchData(this.value).then(loadResults)
       }
+
+      function memo(func) {
+        const cache = new Map();
+
+        return async function(key) {
+          if (cache.has(key)) {
+            console.log('cache hit')
+            return cache.get(key)
+          }
+
+          console.log('cache miss')
+          const res = await func(key)
+
+          cache.set(key, res)
+
+          return res
+        }
+        
+      }
+
+      const memoSearchData = memo(searchData)
 
       function loadResults(results) {
           resultsUl.innerHTML = ''
