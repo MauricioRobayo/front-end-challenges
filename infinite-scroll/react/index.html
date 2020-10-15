@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+      img {
+        margin: 1rem;
+      }
+      .infinite-scroll {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const randomUsername = () => Math.floor(Math.random() * 1000000);
+
+      const Avatar = ({ username, height, width }) => {
+        return (
+          <img
+            src={`https://avatar.oxro.io/avatar.svg?name=${username}`}
+            alt={`${username}-avatar`}
+            height={height}
+            width={width}
+          />
+        )
+      }
+
+      const getAvatars = (amount, size) => Array.from({length: amount}, () => {
+            const username = randomUsername();
+            return (
+              <Avatar 
+                username={username}
+                height={size}
+                width={size}
+                key={username}
+              />
+            )
+          })
+          
+      const InfiniteScroll = () => {
+        const ref = React.useRef();
+        const [avatars, setAvatars] = React.useState([])
+        const avatarHeight = 300;
+
+        const onScreen = useOnScreen(ref);
+
+        React.useEffect(() => {
+          const initialHeight = document.documentElement.clientHeight;
+          const initialAvatars = Math.ceil(initialHeight / avatarHeight);
+          setAvatars(getAvatars(initialAvatars, avatarHeight));
+        }, [])
+
+        React.useEffect(() => {
+          setAvatars((avatars) => {
+            const newAvatars = getAvatars(10, avatarHeight); 
+            console.log({ avatars, newAvatars });
+            return [...avatars, ...newAvatars]
+          })
+        }, [onScreen])
+
+        return (
+          <div className='infinite-scroll'>
+            {avatars}
+            <div ref={ref}>Loading more...</div>
+          </div>
+        )
+      };
+
+      const useOnScreen = (ref) => {
+        const [isOnScreen, setIsOnScreen] = React.useState(false);
+        
+        React.useEffect(() => {
+
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              setIsOnScreen(entry.isIntersecting);
+            })
+          });
+
+          observer.observe(ref.current);
+          return () => observer.unobserve(ref.current);
+        })
+        return isOnScreen;
+      };
+
+      ReactDOM.render(<InfiniteScroll />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
