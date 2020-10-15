@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="./search-helper.js"></script>
+    <script type="text/babel">
+      const SearchAutocomplete = () => {
+        const [searchTerm, setSearchTerm] = React.useState("");
+        const [searchResults, setSearchResults] = React.useState([]);
+        const debouncedValue = useDebounce(searchTerm, 250);       
+
+        const onChangeHandler = (e) => {
+          setSearchTerm(e.target.value);
+        };
+        
+        React.useEffect(() => {
+          console.log({ debouncedValue });
+
+          const fetchData = async (value) => {
+            const sessionStorageData = sessionStorage.getItem(value);
+            if (sessionStorageData !== null) {
+              console.log('cache hit!')
+              setSearchResults(JSON.parse(sessionStorageData));
+              return
+            }
+            
+            
+            console.log('cache miss!')
+            const data = await searchData(value);
+            sessionStorage.setItem(value, JSON.stringify(data));
+            setSearchResults(data);
+          }
+          
+          fetchData(debouncedValue);
+        }, [debouncedValue])
+
+        return (
+          <>
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={onChangeHandler}
+            />
+            <ul>
+              {searchResults.map(({ title, rating }) => (
+                <li key={`${title}${rating}`}>
+                  <span>{title}</span>
+                  <span>{rating}</span>
+                </li>))}
+            </ul>
+          </>
+        );
+      };
+
+      const useDebounce = (value, delay) => {
+        const [debouncedValue, setDebouncedValue] = React.useState(value);
+
+        React.useEffect(() => {
+          const timeout = setTimeout(() => {
+            setDebouncedValue(value)
+          }, delay)
+
+          return () => clearTimeout(timeout);
+        }, [value]);
+
+        return debouncedValue;
+      }
+
+      ReactDOM.render(<SearchAutocomplete />, document.getElementById("root"));
+    </script>
+  </body>
+</html>
